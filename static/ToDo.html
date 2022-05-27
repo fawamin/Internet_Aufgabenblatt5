@@ -14,10 +14,10 @@
     <div id = "wrapper">
         <div id = "add">
             <h1>ToDo Liste</h1>
-            <form method ="post" onsubmit="addEntry(event)">
+            <form onsubmit="addEntry(event)">
                         <legend>Eingabe</legend>
                         <p><label for = "title">Titel:</label><input id = "title" type="text" name = "title" required = "true " value = "Test"/> </p>
-                        <p><label for = "date">Datum:</label><input type="datetime-local" id="due" name="due" required = "true" value = "2002-07-22T23:59:59"></p>
+                        <p><label for = "date">Datum:</label><input type="datetime-local" id="due" name="due" required = "true"></p>
                         <p>
                             <label for="comment">Beschreibung:</label>
                             <br/><textarea id="comment" name="comment" rows="4">Test</textarea>

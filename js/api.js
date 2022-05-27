@@ -38,7 +38,6 @@ module.exports = {
     },
 
     createTodo: (req, res) => {
-
         console.log("createTodo: %o",req.body);
         db.insert(req.body)
             .then(result => {
