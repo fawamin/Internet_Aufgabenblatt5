@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Fabian Waltermann">
+    <link rel="stylesheet" href = "css/style.css">
+    <script src="./js/todo.js" type="text/javascript"></script>
+    <title>Internettechnologien Aufgabe 5/6/7</title>
+</head>
+
+ 
+<body onload="todo.render()">
+    <div id = "wrapper">
+        <div id = "add">
+            <h1>ToDo Liste</h1>
+            <form method ="post" onsubmit="addEntry(event)">
+                        <legend>Eingabe</legend>
+                        <p><label for = "title">Titel:</label><input id = "title" type="text" name = "title" required = "true " value = "Test"/> </p>
+                        <p><label for = "date">Datum:</label><input type="datetime-local" id="due" name="due" required = "true" value = "2002-07-22T23:59:59"></p>
+                        <p>
+                            <label for="comment">Beschreibung:</label>
+                            <br/><textarea id="comment" name="comment" rows="4">Test</textarea>
+                        </p>
+                        <input type = "reset"/>
+                        <input type= "submit" id = "submit" name = "submit" value = "Hinzufuegen">
+            </form>
+        </div>
+        
+        <div id = "todo-list">
+            <div id ="todo-list-entries">
+                
+            </div>
+        </div>
+
+    </div>
+</body>

@@ -1,0 +1,55 @@
+*{
+    background-color: lightgray;
+}
+
+p label {
+    display: inline-block;
+    text-align: right;
+    width: 2em;
+    padding-right: 6ex;
+}
+
+p input{
+    background-color: white;
+}
+
+p textarea{
+    background-color: white;
+}
+
+#add{
+    /*Border*/
+    border-color: gray;
+    border-width: 1px;
+    border-style: solid;
+    margin: 10px;
+    padding: 10px;
+}
+
+#todo-list{
+    margin: 10px;
+    border-color: gray;
+    border-width: 1px;
+    border-style: solid;
+}
+
+#todo-list-entries{
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center ;
+}
+
+#todo-list-entries div{
+    border-radius: 10px;
+    width: auto;
+}
+
+.todo-entry{
+    /*Border*/
+    border-color: gray;
+    border-width: 1px;
+    border-style: solid;
+    margin: 10px;
+    padding: 10px;
+}
