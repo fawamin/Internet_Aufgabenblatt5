@@ -50,13 +50,23 @@ module.exports = {
     saveTodo: (req, res) => {
         let id = req.params.id;
         console.log("saveTodo: %s %o", id, req.body);
-        db.update(id, req.body)
+        db.queryById(id)
             .then(result => {
-                console.log("saveTodo: db returned %o", result);
-                res.send(result);
+                let todoupdate = req.body;
+                console.log(req.body);
+                for(let i in todoupdate)
+                {
+                    result[i] = todoupdate[i];
+                }
+
+                db.update(id, result)
+                .then(re => {
+                    console.log("saveTodo: db returned %o", re);
+                    res.send(re);
+                })
+                .catch(err => res.status(500).send(err));
             })
             .catch(err => res.status(500).send(err));
-
     },
     
     deleteTodo: (req, res) => {
