@@ -10,12 +10,11 @@
 </head>
 
  
-<body onload="todo.render()">
+<body onload="render()">
     <div id = "wrapper">
         <div id = "add">
-            <h1>ToDo Liste</h1>
             <form onsubmit="addEntry(event)">
-                        <legend>Eingabe</legend>
+                        <h1>ToDo Liste</h1>
                         <p><label for = "title">Titel:</label><input id = "title" type="text" name = "title" required = "true " value = "Test"/> </p>
                         <p><label for = "date">Datum:</label><input type="datetime-local" id="due" name="due" required = "true"></p>
                         <p>
@@ -27,11 +26,8 @@
             </form>
         </div>
         
-        <div id = "todo-list">
-            <div id ="todo-list-entries">
-                
-            </div>
+        <div id ="todo-list-entries">
+            
         </div>
-
     </div>
 </body>
