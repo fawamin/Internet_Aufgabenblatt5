@@ -3,7 +3,13 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const api = require('./api.js');
+
+const path = require('path');
+var favicon = require('serve-favicon')
+
 const app = express();
+
+app.use(favicon('./favicon.ico'))
 
 app.use(express.static('static'));
 app.use(cors());
@@ -18,6 +24,5 @@ api.init().then(()=>{
 
     app.put('/api/todo/:id', api.saveTodo);
     app.delete('/api/todo/:id',api.deleteTodo);
-
     app.listen(3000);
 }).catch((err) => console.error("initialization error: %o", err));
