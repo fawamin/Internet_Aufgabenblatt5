@@ -34,16 +34,20 @@ function render() {
                     
                     //Eventlistener update
                     document.getElementById(`submit-${id}`).addEventListener('click', () => {
-                        if (status == "open") {
-                            let answer = fetch(`http://localhost:3000/api/todo/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: "doing" }) })
-                            .then(response => {
-                                entry.getElementsByTagName("p")[0].innerHTML = `${date}<br> ${time} <br> Status: doing <br> Kommentar: ${comment}`;
-                            })
+                        if (status == "open"){
+                            status = "doing";
                         }
-                        if (status == "doing") {
-                            let answer = fetch(`http://localhost:3000/api/todo/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: "done" }) })
+
+                        else if(status == "doing")
+                        {
+                            status = "done";
+                        }
+
+                        if(status != null)
+                        {
+                            let answer = fetch(`http://localhost:3000/api/todo/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: `${status}` }) })
                             .then(response => {
-                                entry.getElementsByTagName("p")[0].innerHTML = `${date}<br> ${time} <br> Status: done <br> Kommentar: ${comment}`;
+                                entry.getElementsByTagName("p")[0].innerHTML = `Due Date: ${date} <br> Due Time: ${time}<br> Status: ${status} <br> Kommentar: <br> ${comment}`;
                             })
                         }
                     });
