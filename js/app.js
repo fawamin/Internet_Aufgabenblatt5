@@ -5,12 +5,7 @@ const cors = require('cors');
 const api = require('./api.js');
 
 const path = require('path');
-var favicon = require('serve-favicon')
-
 const app = express();
-
-app.use(favicon('./favicon.ico'))
-
 app.use(express.static('static'));
 app.use(cors());
 app.use(express.json());  // for parsing application/json
