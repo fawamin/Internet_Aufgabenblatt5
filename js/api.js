@@ -1,7 +1,7 @@
 let db = require('./persistence/mongodb.js');
 
 module.exports = {
-
+    //Get DB connection 
     init: () => {
         return db.connect();
     },
@@ -44,19 +44,22 @@ module.exports = {
             })
             .catch(err => res.status(500).send(err));
     },
-
+    //TODO: updateTodo
     saveTodo: (req, res) => {
+        // Get Old Todo
         let id = req.params.id;
         console.log("saveTodo: %s %o", id, req.body);
         db.queryById(id)
             .then(result => {
                 let todoupdate = req.body;
                 console.log(req.body);
+                //Go through all changes in the request and update the todo
                 for(let i in todoupdate)
                 {
                     result[i] = todoupdate[i];
                 }
 
+                //Save the todo
                 db.update(id, result)
                 .then(re => {
                     console.log("saveTodo: db returned %o", re);

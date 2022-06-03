@@ -81,6 +81,7 @@ function clear() {
 
 function addEntry(evt) {
     evt.preventDefault();
+    //Werte aus den Inputfeldern holen
     let titel = document.getElementById('title').value
     let due_by = document.getElementById('due').value
     let extra = document.getElementById('comment').value
@@ -88,10 +89,12 @@ function addEntry(evt) {
     //JSON element zusammensetzen
     let element = { title: titel, due: due_by, status: state, comment: extra };
     console.log(element)
+    //POST Request an den Server
     let response = fetch("http://localhost:3000/api/todo", { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(element) })
         .then(response => {
             console.log(response)
             render();
+            //Clear the input fields
             document.getElementById('title').value = "";
             document.getElementById('due').value= "";
             document.getElementById('comment').value= "";
