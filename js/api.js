@@ -6,7 +6,6 @@ module.exports = {
         return db.connect();
     },
 
-
     getTodos: (req, res) => {
         db.queryAll()
             .then(result => {
@@ -19,7 +18,6 @@ module.exports = {
 
     },
     
-
     getTodo: (req, res) => {
         let id = req.params.id;
         db.queryById(id)
