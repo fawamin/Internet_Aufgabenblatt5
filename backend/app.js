@@ -1,9 +1,19 @@
+/**
+ * Beispielapplikation "Zentraler Pizzaservice" aus der Vorlesung Internettechnologien, Sommersemester 2020
+ * Diese Datei implementiert den Webserver mithilfe von Express.js
+ *
+ * @copyright 2020 Christian Gawron <gawron.christian@fh-swf.de>
+ * @license MIT
+ * 
+ */
 require('dotenv').config(); // load .env file
 const express = require('express'); // express framework
 const cors = require('cors'); // for cross-origin resource sharingq
 const api = require('./api.js'); // our api routes
 const app = express();
-app.use(express.static('frontend')); //static directory
+
+// Define middleware
+app.use(express.static('frontend')); //frontend directory
 app.use(cors());
 app.use(express.json());  // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded

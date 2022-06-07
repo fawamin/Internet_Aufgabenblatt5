@@ -1,12 +1,15 @@
+/**
+ * Persistance layer using MongoDB
+ *
+ * @copyright 2019 Christian Gawron <gawron.christian@fh-swf.de>
+ * @license MIT
+ */
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
-
 const url = process.env.MONGO_URL;
 const dbName = process.env.MONGO_DB;
-
 let db = null;
 let collection = null;
- 
 class DB {
     connect() {
         return MongoClient.connect(url, {

@@ -1,3 +1,9 @@
+/**
+ * API implementation
+ *
+ * @copyright 2019 Christian Gawron <gawron.christian@fh-swf.de>
+ * @license MIT
+ */
 let db = require('./persistence/mongodb.js');
 
 module.exports = {
@@ -40,26 +46,26 @@ module.exports = {
         db.insert(req.body)
             .then(result => {
                 console.log("createTodo: db returned %o",result);
-                res.sent(result);
+                res.send(result);
             })
-            .catch(err => res.status(500).send(err));
+            .catch(err => res.status(500).send(err));        
     },
-    //TODO: updateTodo
+
+    //Function can only update the todo by adding new or replacing values of old attributes, not deleting old attributes
     saveTodo: (req, res) => {
         // Get Old Todo
         let id = req.params.id;
         console.log("saveTodo: %s %o", id, req.body);
         db.queryById(id)
             .then(result => {
+                // Updated Todo
                 let todoupdate = req.body;
-                console.log(req.body);
                 //Go through all changes in the request and update the todo
                 for(let i in todoupdate)
                 {
                     result[i] = todoupdate[i];
                 }
-
-                //Save the todo
+                //Save the updated todo
                 db.update(id, result)
                 .then(re => {
                     console.log("saveTodo: db returned %o", re);
