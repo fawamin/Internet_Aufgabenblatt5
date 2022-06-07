@@ -1,48 +1,48 @@
-function render() {
-    //Clear the list of Todo entries
-    clear()
+//Function that adds all entries to the page and is only called once
+function firstrender() {
     //Get all Todos from database
     let response = fetch("http://localhost:3000/api/todo")
         .then(response => response.json())
         .then(data =>
             data.forEach(
                 eintrag => {
+                    console.log(eintrag)
                     rendernewTodo(eintrag);
                 }
             )
         );
     }
-
+//Function that adds a new Todo to the Page
 function rendernewTodo(eintrag)
 {
     //Find the todo-list-entries div
     let main = document.getElementById('todo-list-entries');
-     console.log(eintrag);
     //Neuen eintrag erstellen
     let entry = document.createElement('div');
     entry.classList.add("todo-entry");
     //Pull data from the json
     let title = eintrag.title;
-    //Pull apart the date
+    //Seperate Date and Time
     const datetime = new Date(eintrag.due);
     let date = datetime.toLocaleDateString(Navigator.language);
     let time = datetime.toLocaleTimeString(Navigator.language);
 
+    //Get Variables from the json
     let id = eintrag._id;
     let comment = eintrag.comment;
     let status = eintrag.status;
-    //Textinhalt
+    //Entry Text containing title, date , time ,status and comment
     entry.insertAdjacentHTML('beforeend', `<header>${title} </header>`);
     entry.insertAdjacentHTML('beforeend', `<p> Due Date: ${date} <br> Due Time: ${time}<br> Status: ${status} <br> Kommentar: <br> ${comment} </p>`);
-    //Update und Entfernen knopf
+    //Buttons for updating and deleting the entry
     entry.insertAdjacentHTML('beforeend', `<input type= "button" id = "submit-${id}" name = "submit" value = "Updaten">`);
     entry.insertAdjacentHTML('beforeend', `<input type= "button" id = "delete-${id}" name = "delete" value = "Entfernen">`);
-    //appenden des Entries
+    //Add the entry to the page
     main.appendChild(entry);
     
     //Eventlistener update
     document.getElementById(`submit-${id}`).addEventListener('click', () => {
-        //Aktualisieren der Statusvariable
+        //Updating the Status Variable depending on current status
         if (status == "open"){
             status = "doing";
         }
@@ -54,6 +54,7 @@ function rendernewTodo(eintrag)
         {
             let answer = fetch(`http://localhost:3000/api/todo/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: `${status}` }) })
             .then(response => {
+                //Update the Element entry in the page with the new status
                 entry.getElementsByTagName("p")[0].innerHTML = `Due Date: ${date} <br> Due Time: ${time}<br> Status: ${status} <br> Kommentar: <br> ${comment}`;
             })
         }
@@ -68,17 +69,7 @@ function rendernewTodo(eintrag)
     });             
 }
 
-function clear() {
-        //Finden der Entries
-        var div = document.getElementById('todo-list-entries');
-        //Alle kinder Löschen
-        while (div.firstChild) {
-            div.removeChild(div.firstChild);
-        }
-
-    }
-
-
+//Function that adds a new Todo to the Database and adds it to the Page 
 function addEntry(evt) {
     evt.preventDefault();
     //Werte aus den Inputfeldern holen
@@ -88,15 +79,15 @@ function addEntry(evt) {
     let state = "open";
     //JSON element zusammensetzen
     let element = { title: titel, due: due_by, status: state, comment: extra };
-    console.log(element)
     //POST Request an den Server
-    let response = fetch("http://localhost:3000/api/todo", { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(element) })
-        .then(response => {
-            console.log(response)
-            render();
-            //Clear the input fields
+    let newentry = fetch("http://localhost:3000/api/todo", { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(element) })
+        .then(response => response.json())
+        .then(data =>  {
+            let id = data.insertedId;
+            element._id = id;
+            rendernewTodo(element);
             document.getElementById('title').value = "";
             document.getElementById('due').value= "";
             document.getElementById('comment').value= "";
-        });
+        });  
 }
