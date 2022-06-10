@@ -57,7 +57,7 @@ p textarea{
     margin: 0 auto;
     flex-wrap: wrap;
     justify-content: center ;
-    height: 600px;
+    height: 500px;
     overflow-y: scroll;
 }
 
